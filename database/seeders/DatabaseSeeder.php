@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +14,33 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+      
+        // Verificar se o usuário já existe
+         if(!User::where('email', 'cesar@celke.com.br')->first()) {
+            //Cadastrar o usuário
+            User::create([
+                'name' => 'Cesar',
+                'email' => 'cesar@celke.com.br',
+                'password' => '123456A#',
+            ]);
+        }
+        // Se não existir ou encontrar o registro com o email , cadastra o usuario
+        User::firstOrCreate(
+            ['email' => 'Gabrielly@celke.com.br'],
+            ['name' => 'Gabrielly', 'email' => 'Gabrielly@celke.com.br', 'password' => '123456A#']
+        );
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+          
+        User::firstOrCreate(
+            ['email' => 'Kelly@celke.com.br'],
+            ['name' => 'Kelly', 'email' => 'Kelly@celke.com.br', 'password' => '123456A#']
+        );
+          
+        User::firstOrCreate(
+            ['email' => 'Ferrucio@celke.com.br'],
+            ['name' => 'Ferrucio', 'email' => 'Ferrucio@celke.com.br', 'password' => '123456A#']
+        );
+               
     }
+    
 }
