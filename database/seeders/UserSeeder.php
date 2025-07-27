@@ -3,9 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Exception;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Hash;
+use Exception;
 
 class UserSeeder extends Seeder
 {
@@ -14,40 +15,35 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-
-        // Capturar possíveis exceções durante a execução do seeder. 
         try {
-            // Verificar se o usuário está cadastrado no banco de dados
+            // Usuário principal
             if (!User::where('email', 'cesar@celke.com.br')->first()) {
-                // Cadastrar o usuário
                 User::create([
                     'name' => 'Cesar',
                     'email' => 'cesar@celke.com.br',
-                    'password' => '123456A#',
+                    'password' => Hash::make('123456A#'),
                 ]);
             }
 
+            // Criar usuários extras em ambientes que não são produção
             if (App::environment() !== 'production') {
-                // Se não encontrar o registro com o e-mail, cadastra o registro no BD
                 User::firstOrCreate(
                     ['email' => 'kelly@celke.com.br'],
-                    ['name' => 'Kelly', 'email' => 'kelly@celke.com.br', 'password' => '123456A#'],
+                    ['name' => 'Kelly', 'password' => Hash::make('123456A#')]
                 );
 
-                // Se não encontrar o registro com o e-mail, cadastra o registro no BD
                 User::firstOrCreate(
                     ['email' => 'jessica@celke.com.br'],
-                    ['name' => 'Jessica', 'email' => 'jessica@celke.com.br', 'password' => '123456A#'],
+                    ['name' => 'Jessica', 'password' => Hash::make('123456A#')]
                 );
 
-                // Se não encontrar o registro com o e-mail, cadastra o registro no BD
                 User::firstOrCreate(
                     ['email' => 'gabrielly@celke.com.br'],
-                    ['name' => 'Gabrielly', 'email' => 'gabrielly@celke.com.br', 'password' => '123456A#'],
+                    ['name' => 'Gabrielly', 'password' => Hash::make('123456A#')]
                 );
             }
         } catch (Exception $e) {
-            // Lidar com a exceção
+            echo "Erro ao criar usuários: " . $e->getMessage();
         }
     }
 }
