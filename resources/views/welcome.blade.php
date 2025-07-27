@@ -9,7 +9,8 @@
     </head>
  <body>
     <h1>
-        Bem Vindo , você está no curso de Laravel 10 do Celke
+        Bem Vindo , você está no curso de Laravel 12 do Celke
     </h1>
+    <a href="{{ route('courses.index') }}">Listar os Cursos</a>
  </body>
 </html>
