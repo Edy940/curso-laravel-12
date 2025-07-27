@@ -15,27 +15,27 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        Try {
-            if(!User::where('email', 'cesar@celke.com.br')->first()){
+        try {
+            // Usuário principal
+            if (!User::where('email', 'cesar@celke.com.br')->first()) {
                 User::create([
                     'name' => 'Cesar',
                     'email' => 'cesar@celke.com.br',
                     'password' => Hash::make('123456A#'),
                 ]);
             }
-             // Se não encontrar o usuário de teste, cria um novo
-            if(App::environment() !== 'production'){
+
+            // Criar usuário de teste em ambientes não produtivos
+            if (App::environment() !== 'production') {
                 User::firstOrCreate(
-                    ['name' => 'kelly', 'email' => 'Kelly@celke.com.br'],
+                    ['email' => 'Kelly@celke.com.br'],
                     [
-                        'email' => 'Kelly@celke.com.br',
-                        'password' => Hash::make('123456A#')
-                    ],
+                        'name' => 'Kelly',
+                        'password' => Hash::make('123456A#'),
+                    ]
                 );
-            // Se não encontrar o usuário de teste, cria um novo
             }
         } catch (\Exception $e) {
-            // Log the error or handle it as needed
             echo "Error creating test user: " . $e->getMessage();
         }
     }
