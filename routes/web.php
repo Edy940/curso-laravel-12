@@ -9,3 +9,5 @@ Route::get('/', function () {
 
 
 Route::get('/index-course', [CoursesController::class,'index'])->name('courses.index');
+Route::get('/create-course', [CoursesController::class,'create'])->name('courses.create');
+Route::post('/store-course', [CoursesController::class,'store'])->name('courses.store');
